@@ -173,7 +173,7 @@ public partial class MainWindow : Form
 
         private void button10_Click(object sender, EventArgs e)
         {
-            if (orderDataGridView.CurrentCell.ColumnIndex == 0)
+            if (orderDataGridView.CurrentCell.ColumnIndex == 1)
             {
                 //this.tableAdapterManager.UpdateAll(this.bd_dip_furDataSet1);
                 //bd_dip_furDataSet1.Tables["staff"].AcceptChanges();

@@ -4225,6 +4225,8 @@ namespace dip_app_fur {
             
             private global::System.Data.DataColumn columnstatus;
             
+            private global::System.Data.DataColumn columnorder_number;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public orderDataTable() {
@@ -4316,6 +4318,14 @@ namespace dip_app_fur {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn order_numberColumn {
+                get {
+                    return this.columnorder_number;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4351,7 +4361,7 @@ namespace dip_app_fur {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public orderRow AddorderRow(decimal project_id, decimal client_id, decimal manager_id, System.DateTime date, long designer_id, bool status) {
+            public orderRow AddorderRow(decimal project_id, decimal client_id, decimal manager_id, System.DateTime date, long designer_id, bool status, long order_number) {
                 orderRow roworderRow = ((orderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -4360,7 +4370,8 @@ namespace dip_app_fur {
                         manager_id,
                         date,
                         designer_id,
-                        status};
+                        status,
+                        order_number};
                 roworderRow.ItemArray = columnValuesArray;
                 this.Rows.Add(roworderRow);
                 return roworderRow;
@@ -4397,6 +4408,7 @@ namespace dip_app_fur {
                 this.columndate = base.Columns["date"];
                 this.columndesigner_id = base.Columns["designer_id"];
                 this.columnstatus = base.Columns["status"];
+                this.columnorder_number = base.Columns["order_number"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4416,6 +4428,8 @@ namespace dip_app_fur {
                 base.Columns.Add(this.columndesigner_id);
                 this.columnstatus = new global::System.Data.DataColumn("status", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnstatus);
+                this.columnorder_number = new global::System.Data.DataColumn("order_number", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnorder_number);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid_order}, true));
                 this.columnid_order.AutoIncrement = true;
@@ -7991,6 +8005,22 @@ namespace dip_app_fur {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public long order_number {
+                get {
+                    try {
+                        return ((long)(this[this.tableorder.order_numberColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'order_number\' в таблице \'order\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableorder.order_numberColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool Isproject_idNull() {
                 return this.IsNull(this.tableorder.project_idColumn);
             }
@@ -8059,6 +8089,18 @@ namespace dip_app_fur {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetstatusNull() {
                 this[this.tableorder.statusColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool Isorder_numberNull() {
+                return this.IsNull(this.tableorder.order_numberColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void Setorder_numberNull() {
+                this[this.tableorder.order_numberColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -14945,10 +14987,11 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("date", "date");
             tableMapping.ColumnMappings.Add("designer_id", "designer_id");
             tableMapping.ColumnMappings.Add("status", "status");
+            tableMapping.ColumnMappings.Add("order_number", "order_number");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::Npgsql.NpgsqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM ""bd_dip_fur"".""public"".""order"" WHERE ((""id_order"" = @Original_id_order) AND ((@IsNull_project_id = 1 AND ""project_id"" IS NULL) OR (""project_id"" = @Original_project_id)) AND (""client_id"" = @Original_client_id) AND (""manager_id"" = @Original_manager_id) AND (""date"" = @Original_date) AND ((@IsNull_designer_id = 1 AND ""designer_id"" IS NULL) OR (""designer_id"" = @Original_designer_id)) AND ((@IsNull_status = 1 AND ""status"" IS NULL) OR (""status"" = @Original_status)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM ""bd_dip_fur"".""public"".""order"" WHERE ((""id_order"" = @Original_id_order) AND ((@IsNull_project_id = 1 AND ""project_id"" IS NULL) OR (""project_id"" = @Original_project_id)) AND (""client_id"" = @Original_client_id) AND (""manager_id"" = @Original_manager_id) AND (""date"" = @Original_date) AND ((@IsNull_designer_id = 1 AND ""designer_id"" IS NULL) OR (""designer_id"" = @Original_designer_id)) AND ((@IsNull_status = 1 AND ""status"" IS NULL) OR (""status"" = @Original_status)) AND ((@IsNull_order_number = 1 AND ""order_number"" IS NULL) OR (""order_number"" = @Original_order_number)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::Npgsql.NpgsqlParameter param = new global::Npgsql.NpgsqlParameter();
             param.ParameterName = "@Original_id_order";
@@ -15016,11 +15059,25 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             param.SourceColumn = "status";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::Npgsql.NpgsqlParameter();
+            param.ParameterName = "@IsNull_order_number";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "order_number";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.DeleteCommand.Parameters.Add(param);
+            param = new global::Npgsql.NpgsqlParameter();
+            param.ParameterName = "@Original_order_number";
+            param.IsNullable = true;
+            param.SourceColumn = "order_number";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::Npgsql.NpgsqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO \"bd_dip_fur\".\"public\".\"order\" (\"project_id\", \"client_id\", \"manager_id" +
-                "\", \"date\", \"designer_id\", \"status\") VALUES (@project_id, @client_id, @manager_id" +
-                ", @date, @designer_id, @status)";
+                "\", \"date\", \"designer_id\", \"status\", \"order_number\") VALUES (@project_id, @client" +
+                "_id, @manager_id, @date, @designer_id, @status, @order_number)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Npgsql.NpgsqlParameter();
             param.ParameterName = "@project_id";
@@ -15052,9 +15109,14 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             param.IsNullable = true;
             param.SourceColumn = "status";
             this._adapter.InsertCommand.Parameters.Add(param);
+            param = new global::Npgsql.NpgsqlParameter();
+            param.ParameterName = "@order_number";
+            param.IsNullable = true;
+            param.SourceColumn = "order_number";
+            this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::Npgsql.NpgsqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE ""bd_dip_fur"".""public"".""order"" SET ""project_id"" = @project_id, ""client_id"" = @client_id, ""manager_id"" = @manager_id, ""date"" = @date, ""designer_id"" = @designer_id, ""status"" = @status WHERE ((""id_order"" = @Original_id_order) AND ((@IsNull_project_id = 1 AND ""project_id"" IS NULL) OR (""project_id"" = @Original_project_id)) AND (""client_id"" = @Original_client_id) AND (""manager_id"" = @Original_manager_id) AND (""date"" = @Original_date) AND ((@IsNull_designer_id = 1 AND ""designer_id"" IS NULL) OR (""designer_id"" = @Original_designer_id)) AND ((@IsNull_status = 1 AND ""status"" IS NULL) OR (""status"" = @Original_status)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE ""bd_dip_fur"".""public"".""order"" SET ""project_id"" = @project_id, ""client_id"" = @client_id, ""manager_id"" = @manager_id, ""date"" = @date, ""designer_id"" = @designer_id, ""status"" = @status, ""order_number"" = @order_number WHERE ((""id_order"" = @Original_id_order) AND ((@IsNull_project_id = 1 AND ""project_id"" IS NULL) OR (""project_id"" = @Original_project_id)) AND (""client_id"" = @Original_client_id) AND (""manager_id"" = @Original_manager_id) AND (""date"" = @Original_date) AND ((@IsNull_designer_id = 1 AND ""designer_id"" IS NULL) OR (""designer_id"" = @Original_designer_id)) AND ((@IsNull_status = 1 AND ""status"" IS NULL) OR (""status"" = @Original_status)) AND ((@IsNull_order_number = 1 AND ""order_number"" IS NULL) OR (""order_number"" = @Original_order_number)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Npgsql.NpgsqlParameter();
             param.ParameterName = "@project_id";
@@ -15085,6 +15147,11 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             param.ParameterName = "@status";
             param.IsNullable = true;
             param.SourceColumn = "status";
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::Npgsql.NpgsqlParameter();
+            param.ParameterName = "@order_number";
+            param.IsNullable = true;
+            param.SourceColumn = "order_number";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::Npgsql.NpgsqlParameter();
             param.ParameterName = "@Original_id_order";
@@ -15152,6 +15219,20 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             param.SourceColumn = "status";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::Npgsql.NpgsqlParameter();
+            param.ParameterName = "@IsNull_order_number";
+            param.DbType = global::System.Data.DbType.Int32;
+            param.IsNullable = true;
+            param.SourceColumn = "order_number";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            param.SourceColumnNullMapping = true;
+            this._adapter.UpdateCommand.Parameters.Add(param);
+            param = new global::Npgsql.NpgsqlParameter();
+            param.ParameterName = "@Original_order_number";
+            param.IsNullable = true;
+            param.SourceColumn = "order_number";
+            param.SourceVersion = global::System.Data.DataRowVersion.Original;
+            this._adapter.UpdateCommand.Parameters.Add(param);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -15167,8 +15248,8 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             this._commandCollection = new global::Npgsql.NpgsqlCommand[1];
             this._commandCollection[0] = new global::Npgsql.NpgsqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT id_order, project_id, client_id, manager_id, \"date\", designer_id, status F" +
-                "ROM \"order\"";
+            this._commandCollection[0].CommandText = "SELECT id_order, project_id, client_id, manager_id, \"date\", designer_id, status, " +
+                "order_number FROM \"order\"";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -15229,7 +15310,7 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(object @Original_id_order, object @Original_project_id, object @Original_client_id, object @Original_manager_id, object @Original_date, object @Original_designer_id, object @Original_status) {
+        public virtual int Delete(object @Original_id_order, object @Original_project_id, object @Original_client_id, object @Original_manager_id, object @Original_date, object @Original_designer_id, object @Original_status, object @Original_order_number) {
             if ((@Original_id_order == null)) {
                 throw new global::System.ArgumentNullException("@Original_id_order");
             }
@@ -15245,19 +15326,19 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
                 this.Adapter.DeleteCommand.Parameters[2].Value = ((object)(@Original_project_id));
             }
             if ((@Original_client_id == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@Original_client_id");
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(@Original_client_id));
             }
             if ((@Original_manager_id == null)) {
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@Original_manager_id");
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(@Original_manager_id));
             }
             if ((@Original_date == null)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@Original_date");
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(@Original_date));
@@ -15277,6 +15358,14 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             else {
                 this.Adapter.DeleteCommand.Parameters[8].Value = ((object)(0));
                 this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(@Original_status));
+            }
+            if ((@Original_order_number == null)) {
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(@Original_order_number));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -15298,7 +15387,7 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(object @project_id, object @client_id, object @manager_id, object @date, object @designer_id, object @status) {
+        public virtual int Insert(object @project_id, object @client_id, object @manager_id, object @date, object @designer_id, object @status, object @order_number) {
             if ((@project_id == null)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -15306,19 +15395,19 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((object)(@project_id));
             }
             if ((@client_id == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@client_id");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = ((object)(@client_id));
             }
             if ((@manager_id == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@manager_id");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((object)(@manager_id));
             }
             if ((@date == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@date");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = ((object)(@date));
@@ -15334,6 +15423,12 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             }
             else {
                 this.Adapter.InsertCommand.Parameters[5].Value = ((object)(@status));
+            }
+            if ((@order_number == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((object)(@order_number));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -15355,7 +15450,7 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(object @project_id, object @client_id, object @manager_id, object @date, object @designer_id, object @status, object @Original_id_order, object @Original_project_id, object @Original_client_id, object @Original_manager_id, object @Original_date, object @Original_designer_id, object @Original_status) {
+        public virtual int Update(object @project_id, object @client_id, object @manager_id, object @date, object @designer_id, object @status, object @order_number, object @Original_id_order, object @Original_project_id, object @Original_client_id, object @Original_manager_id, object @Original_date, object @Original_designer_id, object @Original_status, object @Original_order_number) {
             if ((@project_id == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -15363,19 +15458,19 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((object)(@project_id));
             }
             if ((@client_id == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@client_id");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = ((object)(@client_id));
             }
             if ((@manager_id == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@manager_id");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((object)(@manager_id));
             }
             if ((@date == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@date");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((object)(@date));
@@ -15392,53 +15487,67 @@ namespace dip_app_fur.bd_dip_furDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(@status));
             }
+            if ((@order_number == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(@order_number));
+            }
             if ((@Original_id_order == null)) {
                 throw new global::System.ArgumentNullException("@Original_id_order");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(@Original_id_order));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(@Original_id_order));
             }
             if ((@Original_project_id == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(@Original_project_id));
-            }
-            if ((@Original_client_id == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(@Original_client_id));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(@Original_project_id));
+            }
+            if ((@Original_client_id == null)) {
+                throw new global::System.ArgumentNullException("@Original_client_id");
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(@Original_client_id));
             }
             if ((@Original_manager_id == null)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@Original_manager_id");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(@Original_manager_id));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(@Original_manager_id));
             }
             if ((@Original_date == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+                throw new global::System.ArgumentNullException("@Original_date");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(@Original_date));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(@Original_date));
             }
             if ((@Original_designer_id == null)) {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[14].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(@Original_designer_id));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(@Original_designer_id));
             }
             if ((@Original_status == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(@Original_status));
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(@Original_status));
+            }
+            if ((@Original_order_number == null)) {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(@Original_order_number));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
