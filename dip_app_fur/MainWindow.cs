@@ -180,7 +180,7 @@ public partial class MainWindow : Form
                 //this.Invalidate();
                 //bd_dip_furDataSet1.Reset();
                 //bd_dip_furDataSet.staff.clear();
-
+                //this.close();
                 string order_number = orderDataGridView.CurrentCell.Value.ToString();
                 List<string> id = new List<string>();
                 List<decimal> rating = new List<decimal>();
